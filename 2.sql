@@ -18,6 +18,7 @@ top_hraci AS (
         COUNT(DISTINCT team_id) AS team_count
     FROM udalosti_hraca uh
     GROUP BY uh.player_id, uh.first_name, uh.last_name
+    LIMIT 5
 ),
 pocet_hier AS (
     SELECT 
@@ -48,8 +49,8 @@ SELECT sh.player_id,
 	sh.last_name,
 	sh.team_id,
 	sh.full_name,
-	ROUND(SUM(sh.total_points) * 1.0 / NULLIF(SUM(ph.total_games), 0), 2) AS PPG,
-	ROUND(SUM(sh.total_assists) * 1.0 / NULLIF(SUM(ph.total_games), 0), 2) AS APG,
+	ROUND(SUM(sh.total_points) * 1.0 / NULLIF(SUM(ph.total_games), 0), 2) AS "PPG",
+	ROUND(SUM(sh.total_assists) * 1.0 / NULLIF(SUM(ph.total_games), 0), 2) AS "APG",
 	SUM(ph.total_games) AS total_games
 FROM statistika_hraca sh
 JOIN pocet_hier ph ON sh.player_id = ph.player_id AND sh.team_id = ph.team_id
