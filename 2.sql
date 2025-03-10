@@ -18,6 +18,7 @@ top_hraci AS (
         COUNT(DISTINCT team_id) AS team_count
     FROM udalosti_hraca uh
     GROUP BY uh.player_id, uh.first_name, uh.last_name
+    ORDER BY team_count DESC
     LIMIT 5
 ),
 pocet_hier AS (
@@ -55,3 +56,4 @@ SELECT sh.player_id,
 FROM statistika_hraca sh
 JOIN pocet_hier ph ON sh.player_id = ph.player_id AND sh.team_id = ph.team_id
 GROUP BY sh.player_id, sh.first_name, sh.last_name, sh.team_id, sh.full_name
+ORDER BY player_id ASC, team_id ASC;
