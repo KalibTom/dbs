@@ -24,4 +24,4 @@ statistika_teamu AS (
 	FROM zapasy_teamu zt
 )
 SELECT * FROM statistika_teamu
-ORDER BY team_id ASC
+ORDER BY team_id ASC, team_name ASC;
