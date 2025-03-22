@@ -4,7 +4,7 @@ WITH zapas AS (
 		event_msg_type,
 		CAST(REPLACE(score_margin, 'TIE', '0') AS INT) AS score_margin
 	FROM play_records
-	WHERE CAST(game_id AS int) = 21701185
+	WHERE CAST(game_id AS int) = {{game_id}} --21701185
 	ORDER BY event_number
 ),
 body_za_hod AS (
@@ -35,7 +35,7 @@ statistiky_neuspesne AS (
 		SUM(CASE WHEN event_msg_type = 'FIELD_GOAL_MISSED' THEN 1 ELSE 0 END) AS "missed_shots",
 		SUM(CASE WHEN event_msg_type = 'FREE_THROW' AND score_margin IS NULL THEN 1 ELSE 0 END) AS "missed_free_throws"
     FROM play_records
-    WHERE CAST(game_id AS int) = 21701185
+    WHERE CAST(game_id AS int) = {{game_id}} --21701185
         AND (event_msg_type = 'FIELD_GOAL_MISSED'
 		OR (event_msg_type = 'FREE_THROW' AND score_margin IS NULL))
     GROUP BY player1_id

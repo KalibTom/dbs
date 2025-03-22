@@ -5,7 +5,7 @@ WITH udalosti_hraca AS (
         pr.player1_id, pr.player2_id, pr.player1_team_id, pr.player2_team_id
     FROM players p
     JOIN play_records pr ON p.id IN (pr.player1_id,  pr.player2_id) AND pr.event_msg_type IN ('FIELD_GOAL_MADE', 'FIELD_GOAL_MISSED', 'FREE_THROW', 'REBOUND')
-    JOIN games g ON g.id = pr.game_id AND CAST(g.season_id AS int) = 22017
+    JOIN games g ON g.id = pr.game_id AND CAST(g.season_id AS int) = {{season_id}} --22017
     JOIN teams t ON t.id = CASE
 		WHEN p.id = pr.player1_id THEN pr.player1_team_id
 		WHEN p.id = pr.player2_id THEN pr.player2_team_id
@@ -15,9 +15,10 @@ top_hraci AS (
     SELECT uh.player_id,
 		uh.first_name,
         uh.last_name,
+		uh.is_active,
         COUNT(DISTINCT team_id) AS team_count
     FROM udalosti_hraca uh
-    GROUP BY uh.player_id, uh.first_name, uh.last_name
+    GROUP BY uh.player_id, uh.first_name, uh.last_name, uh.is_active
     ORDER BY team_count DESC
     LIMIT 5
 ),

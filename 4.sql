@@ -16,7 +16,7 @@ WITH statistiky_hraca AS (
 	FROM players p
 	JOIN play_records pr ON (p.id = pr.player1_id OR p.id = pr.player2_id)
 	JOIN games g ON pr.game_id = g.id
-	WHERE CAST(g.season_id AS int) = 22018
+	WHERE CAST(g.season_id AS int) = {{season_id}} --22018
 	GROUP BY g.id, p.id, p.full_name
 	ORDER BY game_date
 ),
@@ -50,4 +50,4 @@ SELECT
     MAX(streak_counter) AS longest_streak
 FROM streaks
 GROUP BY player_id
-ORDER BY longest_streak DESC,
+ORDER BY longest_streak DESC, player_id ASC;

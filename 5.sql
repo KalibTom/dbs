@@ -25,3 +25,6 @@ statistika_teamu AS (
 )
 SELECT * FROM statistika_teamu
 ORDER BY team_id ASC, team_name ASC;
+
+
+

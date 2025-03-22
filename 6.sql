@@ -7,8 +7,8 @@
 	FROM play_records pr
 	JOIN players p ON pr.player1_id = p.id
 	JOIN games g ON pr.game_id = g.id
-	WHERE p.first_name =  'LeBron' 
-		AND p.last_name =  'James' 
+	WHERE p.first_name = {{first_name}} --'LeBron' 
+		AND p.last_name = {{last_name}} --'James' 
 		AND g.season_type = 'Regular Season'
 		AND pr.event_msg_type IN ('FIELD_GOAL_MADE', 'FIELD_GOAL_MISSED')
 ),
